@@ -1,18 +1,30 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronRight, ShoppingBasket, CheckCircle2, Menu, X, User, ArrowUpRight } from 'lucide-react';
+import { ChevronRight, Menu, X, User, ArrowUpRight, Globe } from 'lucide-react';
 import { Skiper58 } from '@/components/ui/text-roll-navigation';
 import { ProfileModal } from '@/components/ProfileModal';
 import { YearCountdown } from '@/components/YearCountdown';
 import { FAQ } from '@/components/FAQ';
 import { CourseCard } from '@/components/CourseCard';
+import { useLanguage, Language } from '@/hooks/use-language';
+import { translations } from '@/hooks/translations';
 
 export default function Page() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const t = translations[language];
 
   return (
     <main className="min-h-screen relative overflow-hidden pb-20 font-sans">
@@ -23,17 +35,36 @@ export default function Page() {
         
         {/* Top Navigation */}
         <nav className="flex items-center justify-between gap-2 mb-8 md:mb-24">
-          <button 
-            onClick={() => setIsProfileOpen(true)}
-            className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 rounded-full border border-white/10 bg-[#0a0a0a] text-[10px] md:text-sm text-gray-200 hover:bg-white/5 transition-all shrink-0"
-          >
-            <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#22c55e] flex items-center justify-center text-black">
-              <User size={10} className="md:hidden" strokeWidth={3} />
-              <User size={14} className="hidden md:block" strokeWidth={3} />
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsProfileOpen(true)}
+              className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 rounded-full border border-white/10 bg-[#0a0a0a] text-[10px] md:text-sm text-gray-200 hover:bg-white/5 transition-all shrink-0"
+            >
+              <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#22c55e] flex items-center justify-center text-black">
+                <User size={10} className="md:hidden" strokeWidth={3} />
+                <User size={14} className="hidden md:block" strokeWidth={3} />
+              </div>
+              <span className="hidden sm:inline">{t.nav.profile}</span>
+              <span className="sm:hidden">{t.nav.profile.split(' ')[1] || t.nav.profile}</span>
+            </button>
+
+            {/* Inline Language Toggle for desktop/quick access */}
+            <div className="hidden md:flex items-center bg-[#0a0a0a] border border-white/10 rounded-full p-1">
+              {(['es', 'en', 'pt'] as Language[]).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${
+                    language === lang
+                    ? 'bg-[#a3e635] text-black'
+                    : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
             </div>
-            <span className="hidden sm:inline">Mi Perfil</span>
-            <span className="sm:hidden">Perfil</span>
-          </button>
+          </div>
           
           <div className="flex-1 flex justify-center">
             <YearCountdown />
@@ -42,7 +73,7 @@ export default function Page() {
           <button 
             onClick={() => setIsMenuOpen(true)}
             className="flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-full border border-white/10 bg-[#0a0a0a] text-gray-200 hover:bg-white/5 transition-all shrink-0"
-            aria-label="Abrir menú"
+            aria-label={t.nav.openMenu}
           >
             <Menu size={16} className="md:hidden" />
             <Menu size={20} className="hidden md:block" />
@@ -53,10 +84,10 @@ export default function Page() {
         <div className="relative w-full flex flex-col md:flex-row justify-between items-center mt-4 md:mt-10 mb-16 md:mb-24 md:min-h-[700px]">
           
           {/* Left Text */}
-          <div className="relative z-20 w-full md:w-1/3 flex flex-col items-center text-center md:pl-4 mb-8 md:mb-0 h-[137px]">
+          <div className="relative z-20 w-full md:w-1/3 flex flex-col items-center text-center md:pl-4 mb-8 md:mb-0">
             <div className="w-12 md:w-16 h-[2px] bg-[#22c55e] mb-4 md:mb-5 opacity-80" />
-            <h2 className="w-[370px] h-[165px] text-[28px] font-bold text-center leading-[1.15] text-gray-100 tracking-tight">
-              Aprendiendo a vivir la Palabra de Dios,<br />un día a la vez
+            <h2 className="text-[24px] md:text-[28px] font-bold text-center leading-[1.15] text-gray-100 tracking-tight max-w-[370px]">
+              {t.hero.subtitle}
             </h2>
           </div>
 
@@ -65,7 +96,7 @@ export default function Page() {
             <div className="relative w-[280px] h-[380px] sm:w-[450px] sm:h-[600px] md:w-[700px] md:h-[850px] pointer-events-none">
               <Image 
                 src="https://lh3.googleusercontent.com/d/15ESWllXvWWNaUEUphfCgcaQYSFXnc9BB" 
-                alt="Avatar de Estudio" 
+                alt="Avatar"
                 fill 
                 className="object-cover object-top"
                 style={{ 
@@ -76,20 +107,12 @@ export default function Page() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            
-            {/* Name Over Avatar - Mobile specific positioning */}
-            <div className="absolute bottom-[5%] md:bottom-[0%] left-1/2 -translate-x-1/2 text-center z-20 w-full flex flex-col items-center select-none pointer-events-none">
-              <span className="text-[#4ade80] tracking-[0.6em] md:tracking-[1em] text-[8px] md:text-[14px] font-bold uppercase mb-[-5px] md:mb-[-20px] ml-2 md:ml-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"></span>
-              <h1 className="text-[50px] sm:text-[120px] md:text-[220px] font-[family-name:var(--font-montserrat)] font-bold tracking-[-0.06em] leading-none uppercase bg-gradient-to-b from-[#ffffff] via-[#e5e5e5] to-[#737373] bg-clip-text text-transparent drop-shadow-2xl">
-                
-              </h1>
-            </div>
           </div>
 
           {/* Right Text */}
           <div className="relative z-20 w-full md:w-1/3 flex justify-center md:justify-end text-center md:pr-4 mt-8 md:mt-0">
-            <p className="text-[#d4d4d8] text-[14px] text-center leading-[18.4px] ml-[-4px] w-[400px] max-w-full font-light">
-              No lo sé todo, estoy aprendiendo. Aquí comparto lo que voy entendiendo de la Biblia a lo largo del camino. Si esto te ayuda de alguna forma, ya valió la pena.
+            <p className="text-[#d4d4d8] text-[14px] text-center leading-relaxed max-w-[400px] font-light">
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -100,10 +123,10 @@ export default function Page() {
         {/* About Section */}
         <div className="max-w-[900px] mb-12 md:mb-20">
           <h2 className="text-[26px] sm:text-3xl md:text-[40px] font-medium text-gray-100 mb-4 md:mb-6 leading-[1.2] tracking-tight">
-            Creciendo en la fe, paso a paso
+            {t.about.title}
           </h2>
-          <p className="text-[#71717a] text-[14px] leading-[18.8px] max-w-[1000px]">
-            Este espacio es solo un lugar donde guardo y comparto lo que estoy aprendiendo con Dios. Nada perfecto, solo real. Mi intención es simplemente crecer con Dios y, si es posible, ayudar a alguien en el camino.
+          <p className="text-[#71717a] text-[14px] leading-relaxed max-w-[1000px]">
+            {t.about.description}
           </p>
         </div>
 
@@ -111,18 +134,18 @@ export default function Page() {
         <div id="ensenanzas" className="mb-24 md:mb-32 scroll-mt-24">
           <div className="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-10 gap-4">
             <div className="flex flex-col gap-2">
-              <h2 className="text-2xl md:text-5xl font-medium text-white tracking-tight uppercase">MATERIAL DE ESTUDIO</h2>
-              <p className="text-[#a1a1aa] text-base md:text-lg">Mi proceso con la Palabra</p>
+              <h2 className="text-2xl md:text-5xl font-medium text-white tracking-tight uppercase">{t.sections.studyMaterial}</h2>
+              <p className="text-[#a1a1aa] text-base md:text-lg">{t.sections.myProcess}</p>
               <Link href="/ensenanzas" className="text-[#a3e635] text-sm md:text-base hover:underline flex items-center gap-1 mt-2">
-                Ver todo el material <ArrowUpRight size={16} />
+                {t.sections.viewAll} <ArrowUpRight size={16} />
               </Link>
             </div>
             <div className="flex gap-4 text-[12px] md:text-sm text-gray-400 font-medium">
-              <span className="text-[#a3e635]">Todos</span>
+              <span className="text-[#a3e635]">{t.sections.all}</span>
               <span className="hidden sm:inline opacity-50">—</span>
-              <span className="hidden sm:inline hover:text-white cursor-pointer transition-colors">Cursos</span>
+              <span className="hidden sm:inline hover:text-white cursor-pointer transition-colors">{t.sections.courses}</span>
               <span className="hidden sm:inline opacity-50">—</span>
-              <span className="hidden sm:inline hover:text-white cursor-pointer transition-colors">Libros</span>
+              <span className="hidden sm:inline hover:text-white cursor-pointer transition-colors">{t.sections.books}</span>
             </div>
           </div>
           
@@ -171,11 +194,11 @@ export default function Page() {
 
         {/* Footer / Contact */}
         <div className="flex flex-col items-center justify-center text-center pb-10">
-          <h3 className="text-lg md:text-xl font-medium text-white mb-6 md:mb-8">Contáctame</h3>
+          <h3 className="text-lg md:text-xl font-medium text-white mb-6 md:mb-8">{t.footer.contact}</h3>
           <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8">
             <SocialIcon type="instagram" label="Instagram" href="https://www.instagram.com/soykaue_/" />
             <SocialIcon type="x" label="X" href="https://x.com/soykaue_" />
-            <SocialIcon type="church" label="Mi Iglesia" href="https://admmadureira.netlify.app" />
+            <SocialIcon type="church" label={t.footer.myChurch} href="https://admmadureira.netlify.app" />
           </div>
         </div>
 
@@ -183,12 +206,12 @@ export default function Page() {
 
       {/* Fullscreen Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#050505]/95 backdrop-blur-xl flex flex-col">
+        <div className="fixed inset-0 z-[100] bg-[#050505]/95 backdrop-blur-xl flex flex-col">
           <div className="flex justify-end p-6 md:p-8 max-w-[1100px] mx-auto w-full">
             <button
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center justify-center w-11 h-11 rounded-full border border-white/10 bg-[#0a0a0a] text-gray-200 hover:bg-white/5 transition-all"
-              aria-label="Cerrar menú"
+              aria-label={t.nav.closeMenu}
             >
               <X size={20} />
             </button>
@@ -208,24 +231,12 @@ export default function Page() {
 function SocialIcon({ type, label, href = "#" }: { type: string, label: string, href?: string }) {
   const getIcon = () => {
     switch (type) {
-      case 'gmail':
-        return (
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="#EA4335"/>
-          </svg>
-        );
       case 'instagram':
         return (
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="2" width="20" height="20" rx="5" stroke="#E1306C" strokeWidth="2"/>
             <circle cx="12" cy="12" r="4" stroke="#E1306C" strokeWidth="2"/>
             <circle cx="17.5" cy="6.5" r="1.5" fill="#E1306C"/>
-          </svg>
-        );
-      case 'whatsapp':
-        return (
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.01 2.01C6.49 2.01 2.01 6.49 2.01 12.01C2.01 13.78 2.47 15.45 3.28 16.91L2 22L7.23 20.75C8.68 21.53 10.31 22 12.01 22C17.53 22 22.01 17.52 22.01 12.01C22.01 6.49 17.53 2.01 12.01 2.01ZM17.13 16.34C16.91 16.96 15.65 17.47 15.01 17.54C14.54 17.59 13.88 17.65 11.51 16.67C8.48 15.42 6.52 12.33 6.37 12.13C6.22 11.93 5.12 10.47 5.12 8.95C5.12 7.43 5.89 6.69 6.2 6.37C6.46 6.1 6.89 5.96 7.3 5.96C7.43 5.96 7.55 5.97 7.66 5.97C7.96 5.97 8.11 5.99 8.31 6.47C8.56 7.08 9.17 8.57 9.24 8.72C9.32 8.87 9.42 9.08 9.32 9.28C9.22 9.48 9.12 9.6 8.97 9.78C8.82 9.96 8.65 10.18 8.52 10.31C8.37 10.46 8.22 10.62 8.39 10.92C8.56 11.22 9.16 12.2 10.05 12.99C11.19 14.01 12.12 14.33 12.45 14.47C12.75 14.6 13.1 14.57 13.3 14.35C13.55 14.08 13.88 13.58 14.2 13.08C14.45 12.68 14.8 12.73 15.15 12.86C15.5 12.98 17.36 13.9 17.71 14.08C18.06 14.25 18.29 14.34 18.39 14.51C18.49 14.68 18.49 15.51 17.13 16.34Z" fill="#25D366"/>
           </svg>
         );
       case 'x':
@@ -245,18 +256,6 @@ function SocialIcon({ type, label, href = "#" }: { type: string, label: string, 
               referrerPolicy="no-referrer"
             />
           </div>
-        );
-      case 'pinterest':
-        return (
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.017 2C6.478 2 2 6.478 2 12.017C2 16.27 4.654 19.929 8.423 21.353C8.35 20.563 8.284 19.349 8.452 18.491C8.604 17.718 9.435 14.202 9.435 14.202C9.435 14.202 9.183 13.698 9.183 12.956C9.183 11.787 9.86 10.912 10.705 10.912C11.423 10.912 11.772 11.451 11.772 12.096C11.772 12.818 11.312 13.894 11.07 14.893C10.867 15.729 11.489 16.411 12.316 16.411C13.808 16.411 14.966 14.836 14.966 12.569C14.966 10.534 13.503 9.07 11.237 9.07C8.618 9.07 7.058 11.035 7.058 13.336C7.058 14.058 7.336 14.831 7.708 15.263C7.78 15.348 7.788 15.42 7.766 15.506C7.694 15.793 7.536 16.431 7.5 16.581C7.45 16.782 7.321 16.832 7.113 16.739C5.748 16.102 4.852 14.398 4.852 12.812C4.852 9.425 7.314 6.368 11.531 6.368C14.922 6.368 17.536 8.781 17.536 12.067C17.536 15.436 15.416 18.114 12.438 18.114C11.449 18.114 10.511 17.6 10.188 17.034C10.188 17.034 9.693 18.917 9.564 19.411C9.349 20.235 8.783 21.288 8.36 21.947C9.506 22.291 10.739 22.484 12.017 22.484C17.556 22.484 22.034 18.006 22.034 12.467C22.034 6.928 17.556 2.45 12.017 2.45V2Z" fill="#E60023"/>
-          </svg>
-        );
-      case 'behance':
-        return (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9.13 10.82C10.02 10.61 10.6 10.15 10.6 9.17C10.6 7.69 9.49 7.15 7.85 7.15H3.5V16.85H8.16C10.13 16.85 11.19 15.93 11.19 14.36C11.19 12.88 10.3 12.12 9.13 10.82ZM6.03 9.04H7.66C8.36 9.04 8.85 9.21 8.85 9.85C8.85 10.51 8.36 10.68 7.66 10.68H6.03V9.04ZM7.89 14.96H6.03V12.43H7.89C8.74 12.43 9.3 12.63 9.3 13.69C9.3 14.76 8.74 14.96 7.89 14.96ZM16.03 11.23C14.49 11.23 13.56 12.42 13.56 14.02C13.56 15.65 14.54 16.85 16.14 16.85C17.43 16.85 18.25 16.16 18.48 15.02H16.79C16.66 15.42 16.37 15.58 16.08 15.58C15.51 15.58 15.34 15.08 15.32 14.53H18.63C18.66 12.55 17.65 11.23 16.03 11.23ZM15.34 13.43C15.41 12.75 15.67 12.42 16.05 12.42C16.42 12.42 16.66 12.72 16.71 13.43H15.34ZM14.4 9.85H17.72V8.48H14.4V9.85Z" fill="#FFFFFF"/>
-          </svg>
         );
       default:
         return null;

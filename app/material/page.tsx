@@ -1,23 +1,33 @@
 "use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Home, Play, Info, Download, Paperclip, ArrowUp, Image as ImageIcon, Figma, Upload, Layout, UserPlus, Plus } from 'lucide-react';
+import { Home, ArrowUp } from 'lucide-react';
 import { CourseCard } from '@/components/CourseCard';
 import { Testimonial } from '@/components/ui/design-testimonial';
+import { useLanguage } from '@/hooks/use-language';
+import { translations } from '@/hooks/translations';
 
 export default function MaterialPage() {
+  const { language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
   const [query, setQuery] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null, message: string }>({ type: null, message: '' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const t = translations[language];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
 
     const currentQuery = query;
-    // Limpiamos el input inmediatamente para dar sensación de rapidez (Optimistic UI)
     setQuery('');
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
@@ -27,26 +37,27 @@ export default function MaterialPage() {
 
     try {
       const scriptUrl = "https://script.google.com/macros/s/AKfycbxViJmvEkvPTADhwF0DMNekYIT6AArwMypRlq0zEL06eWZGqCNl16cQOlEuRhA1IBEAMw/exec";
-      
-      // Usamos mode: 'no-cors' para evitar bloqueos de CORS y hacer que la petición no espere la redirección completa
       await fetch(scriptUrl, {
         method: "POST",
         body: formData,
         mode: 'no-cors'
       });
 
-      // Al usar no-cors la respuesta es opaca (no podemos leer el JSON), 
-      // pero si no lanza excepción de red, asumimos que se envió correctamente.
-      setSubmitStatus({ type: 'success', message: '¡Gracias por tu respuesta!' });
+      setSubmitStatus({
+        type: 'success',
+        message: language === 'es' ? '¡Gracias por tu respuesta!' : language === 'en' ? 'Thank you for your response!' : 'Obrigado pela sua resposta!'
+      });
       
-      // Ocultamos el mensaje de éxito después de 4 segundos para limpiar la interfaz
       setTimeout(() => {
         setSubmitStatus({ type: null, message: '' });
       }, 4000);
 
     } catch (error) {
-      setSubmitStatus({ type: 'error', message: 'Error de conexión. Inténtalo de nuevo.' });
-      setQuery(currentQuery); // Restauramos el texto si hubo un error real de red
+      setSubmitStatus({
+        type: 'error',
+        message: language === 'es' ? 'Error de conexión. Inténtalo de nuevo.' : language === 'en' ? 'Connection error. Try again.' : 'Erro de conexão. Tente novamente.'
+      });
+      setQuery(currentQuery);
     } finally {
       setIsSubmitting(false);
     }
@@ -58,28 +69,30 @@ export default function MaterialPage() {
       <header className="fixed top-0 w-full py-4 px-4 md:px-8 flex items-center justify-between z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
         <Link href="/" className="relative z-50 flex items-center gap-2 text-gray-300 hover:text-white transition-colors group cursor-pointer">
           <Home size={24} className="group-hover:scale-110 transition-transform" />
-          <span className="hidden md:block font-medium text-sm">Inicio</span>
+          <span className="hidden md:block font-medium text-sm">{t.nav.home}</span>
         </Link>
         <div className="text-xl font-bold tracking-tighter uppercase">
           MATE<span className="text-[#a3e635]">RIAL</span>
         </div>
       </header>
 
-      {/* Hero Section Replaced with Testimonial */}
+      {/* Hero Section */}
       <Testimonial />
 
       {/* Categories Rows */}
       <div className="flex flex-col gap-10 md:gap-16 px-4 md:px-12 lg:px-20 mt-12 md:mt-16 relative z-20">
         
-        {/* Search Section (v0 style) */}
+        {/* Search Section */}
         <section className="flex flex-col items-center w-full max-w-4xl mx-auto mb-4 md:mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center tracking-tight text-white">¿Qué material necesitas hoy?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center tracking-tight text-white">
+            {language === 'es' ? '¿Qué material necesitas hoy?' : language === 'en' ? 'What material do you need today?' : 'De qual material você precisa hoje?'}
+          </h2>
           
           <form onSubmit={handleSubmit} className="w-full bg-[#121212] border border-white/10 rounded-2xl p-3 flex flex-col gap-3 focus-within:border-white/20 transition-colors shadow-2xl">
             <textarea 
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Escribe aquí tu opinión o lo que necesitas..."
+              placeholder={language === 'es' ? 'Escribe aquí tu opinión o lo que necesitas...' : language === 'en' ? 'Write here your opinion or what you need...' : 'Escreva aqui sua opinião ou o que você precisa...'}
               className="w-full bg-transparent text-white placeholder:text-gray-500 outline-none resize-none min-h-[60px] p-2 text-lg"
               rows={1}
               required
@@ -109,12 +122,14 @@ export default function MaterialPage() {
 
         {/* Row 1: Plantillas Figma */}
         <section className="flex flex-col gap-6">
-          <h2 className="text-xl md:text-2xl font-bold text-white/90 px-2">Plantillas Figma</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-white/90 px-2">
+            {language === 'es' ? 'Plantillas Figma' : language === 'en' ? 'Figma Templates' : 'Templates do Figma'}
+          </h2>
           <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="Dashboard SaaS" 
-              author="Por UI Team"
+              author={language === 'es' ? 'Por UI Team' : language === 'en' ? 'By UI Team' : 'Por UI Team'}
               type="PLANTILLA FIGMA"
               bgColor="bg-[#3b82f6]"
               textColor="text-white"
@@ -123,7 +138,7 @@ export default function MaterialPage() {
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="E-commerce App" 
-              author="Por John Doe"
+              author={language === 'es' ? 'Por John Doe' : 'By John Doe'}
               type="PLANTILLA FIGMA"
               bgColor="bg-[#8b5cf6]"
               textColor="text-white"
@@ -132,7 +147,7 @@ export default function MaterialPage() {
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="Landing Page Kit" 
-              author="Por Sarah Lee"
+              author={language === 'es' ? 'Por Sarah Lee' : 'By Sarah Lee'}
               type="PLANTILLA FIGMA"
               bgColor="bg-[#10b981]"
               textColor="text-white"
@@ -152,12 +167,14 @@ export default function MaterialPage() {
 
         {/* Row 2: Iconos y Assets */}
         <section className="flex flex-col gap-6">
-          <h2 className="text-xl md:text-2xl font-bold text-white/90 px-2">Iconos y Assets</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-white/90 px-2">
+            {language === 'es' ? 'Iconos y Assets' : language === 'en' ? 'Icons and Assets' : 'Ícones e Assets'}
+          </h2>
           <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="Icon Pack 3D" 
-              author="Por Design Studio"
+              author={language === 'es' ? 'Por Design Studio' : 'By Design Studio'}
               type="ASSETS"
               bgColor="bg-[#e5e5e5]"
               textColor="text-black"
@@ -166,7 +183,7 @@ export default function MaterialPage() {
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="Ilustraciones Flat" 
-              author="Por Jane Smith"
+              author={language === 'es' ? 'Por Jane Smith' : 'By Jane Smith'}
               type="ASSETS"
               bgColor="bg-[#ec4899]"
               textColor="text-white"
@@ -175,7 +192,7 @@ export default function MaterialPage() {
             <CourseCard 
               className="w-[240px] md:w-[280px] snap-start"
               title="Mockups iPhone 16" 
-              author="Por UI Team"
+              author={language === 'es' ? 'Por UI Team' : 'By UI Team'}
               type="MOCKUPS"
               bgColor="bg-[#64748b]"
               textColor="text-white"

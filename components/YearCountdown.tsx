@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '@/hooks/use-language';
 
 export function YearCountdown() {
   const [timeLeft, setTimeLeft] = useState({
@@ -10,6 +11,7 @@ export function YearCountdown() {
     seconds: 0,
   });
   const [mounted, setMounted] = useState(false);
+  const { language } = useLanguage();
 
   useEffect(() => {
     // Use a microtask to avoid synchronous setState warning
@@ -42,34 +44,42 @@ export function YearCountdown() {
   // Subtle chromatic aberration effect for the numbers
   const glitchShadow = '1px 0 2px rgba(255,0,0,0.4), -1px 0 2px rgba(0,255,255,0.4)';
 
+  const labels = {
+    es: { days: 'Días', hours: 'Horas', mins: 'Min', secs: 'Seg' },
+    en: { days: 'Days', hours: 'Hours', mins: 'Min', secs: 'Sec' },
+    pt: { days: 'Dias', hours: 'Horas', mins: 'Min', secs: 'Seg' }
+  };
+
+  const l = labels[language];
+
   return (
     <div className="flex items-center gap-1.5 md:gap-3 px-3 md:px-6 py-1.5 md:py-2 rounded-full border border-white/10 bg-[#0a0a0a] text-white font-mono shadow-[0_0_15px_rgba(255,255,255,0.03)]">
       <div className="flex flex-col items-center justify-center min-w-[24px] md:min-w-[32px]">
         <span className="text-sm md:text-lg font-bold leading-none tracking-tighter" style={{ textShadow: glitchShadow }}>
           {formatNumber(timeLeft.days)}
         </span>
-        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">Días</span>
+        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">{l.days}</span>
       </div>
       <span className="text-xs md:text-sm font-bold leading-none pb-2 md:pb-3 text-gray-500">:</span>
       <div className="flex flex-col items-center justify-center min-w-[20px] md:min-w-[28px]">
         <span className="text-sm md:text-lg font-bold leading-none tracking-tighter" style={{ textShadow: glitchShadow }}>
           {formatNumber(timeLeft.hours)}
         </span>
-        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">Horas</span>
+        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">{l.hours}</span>
       </div>
       <span className="text-xs md:text-sm font-bold leading-none pb-2 md:pb-3 text-gray-500">:</span>
       <div className="flex flex-col items-center justify-center min-w-[20px] md:min-w-[28px]">
         <span className="text-sm md:text-lg font-bold leading-none tracking-tighter" style={{ textShadow: glitchShadow }}>
           {formatNumber(timeLeft.minutes)}
         </span>
-        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">Min</span>
+        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">{l.mins}</span>
       </div>
       <span className="text-xs md:text-sm font-bold leading-none pb-2 md:pb-3 text-gray-500">:</span>
       <div className="flex flex-col items-center justify-center min-w-[20px] md:min-w-[28px]">
         <span className="text-sm md:text-lg font-bold leading-none tracking-tighter" style={{ textShadow: glitchShadow }}>
           {formatNumber(timeLeft.seconds)}
         </span>
-        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">Seg</span>
+        <span className="text-[7px] md:text-[9px] text-gray-400 uppercase tracking-widest mt-0.5 md:mt-1">{l.secs}</span>
       </div>
     </div>
   );
