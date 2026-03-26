@@ -5,7 +5,6 @@ export const translations: Record<Language, any> = {
     nav: {
       home: "Inicio",
       teachings: "Enseñanzas",
-      material: "Material",
       profile: "Mi Perfil",
       openMenu: "Abrir menú",
       closeMenu: "Cerrar menú",
@@ -54,7 +53,6 @@ export const translations: Record<Language, any> = {
     nav: {
       home: "Home",
       teachings: "Teachings",
-      material: "Material",
       profile: "My Profile",
       openMenu: "Open menu",
       closeMenu: "Close menu",
@@ -103,13 +101,12 @@ export const translations: Record<Language, any> = {
     nav: {
       home: "Início",
       teachings: "Ensinos",
-      material: "Material",
       profile: "Meu Perfil",
       openMenu: "Abrir menu",
       closeMenu: "Fechar menu",
     },
     hero: {
-      subtitle: "Aprendendo a viver a Palavra de Deus, um dia de cada vez",
+      subtitle: "Aprendendo a viver a Palavra de Deus, um día de cada vez",
       description: "Não sei tudo, estou aprendendo. Aqui compartilho o que vou entendendo da Bíblia ao longo do caminho. Se isso te ajudar de alguma forma, já valeu a pena.",
     },
     about: {
@@ -117,7 +114,7 @@ export const translations: Record<Language, any> = {
       description: "Este espaço é apenas um lugar onde guardo e compartilho o que estou aprendendo com Deus. Nada perfeito, apenas real. Minha intenção é simplesmente crescer com Deus e, se possível, ajudar alguém no caminho.",
     },
     sections: {
-      studyMaterial: "MATERIAL DE ESTUDO",
+      studyMaterial: "MATERIAL DE ESTUDIO",
       myProcess: "Meu processo com a Palavra",
       viewAll: "Ver todo o material",
       all: "Todos",

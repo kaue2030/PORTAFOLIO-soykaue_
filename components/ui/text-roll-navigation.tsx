@@ -75,7 +75,6 @@ export const Skiper58: React.FC<{ className?: string; onItemClick?: () => void }
   const navigationItems = [
     { name: t.home, href: "/", description: "" },
     { name: t.teachings, href: "/ensenanzas", description: "" },
-    { name: t.material, href: "/material", description: "" },
   ];
 
   const languages: { code: Language; label: string }[] = [
