@@ -63,7 +63,11 @@ function CristologiaContent() {
 
   const content = {
     es: {
-      description: "La Cristología es el estudio bíblico de quién es Jesucristo. Enseña que Jesús es verdadero Dios (Juan 1:1) y verdadero hombre (Hebreos 2:17): nació de una virgen (Mateo 1:23), vivió sin pecado (Hebreos 4:15), murió en la cruz por nuestros pecados (1 Corintios 15:3), resucitó al tercer día (1 Corintios 15:4) y ahora gobierna como Señor (Filipenses 2:9-11). Él es el centro de la fe cristiana, el Salvador del mundo y el único mediador entre Dios y los hombres (1 Timoteo 2:5).",
+      description: (
+        <>
+          La <span className="font-bold text-black">Cristología</span> es el estudio bíblico de quién es Jesucristo. Enseña que Jesús es <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadero Dios</span> (Juan 1:1) y <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadero hombre</span> (Hebreos 2:17): nació de una virgen (Mateo 1:23), vivió sin pecado (Hebreos 4:15), murió en la cruz por nuestros pecados (1 Corintios 15:3), resucitó al tercer día (1 Corintios 15:4) y ahora gobierna como Señor (Filipenses 2:9-11). Él es el centro de la fe cristiana, el Salvador del mundo y el <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">único mediador</span> entre Dios y los hombres (1 Timoteo 2:5).
+        </>
+      ),
       deity: ["La realidad de las dos naturalezas", "La integridad de las dos naturalezas", "La unión de las dos naturalezas en una sola persona", "Importancia de esta doctrina para la Iglesia."],
       incarnation: ["Antes de la encarnación", "Después de la encarnación", "Cristo es Dios y Hombre al 100%", "La doble naturaleza de Cristo"],
       names: ["Se le llama Dios", "Se le llama Señor", "Se le llama el Primero y el Último", "Cristo, el Ungido de Jehová"],
@@ -71,20 +75,28 @@ function CristologiaContent() {
       properties: ["Su propia existencia", "Su inmutabilidad", "Su infinitud", "a. Su absoluta perfección", "b. Su eternidad"]
     },
     en: {
-      description: "Christology is the biblical study of who Jesus Christ is. It teaches that Jesus is true God (John 1:1) and true man (Hebrews 2:17): born of a virgin (Matthew 1:23), lived without sin (Hebreos 4:15), died on the cross for our sins (1 Corinthians 15:3), rose on the third day (1 Corinthians 15:4), and now reigns as Lord (Philippians 2:9-11). He is the center of the Christian faith, the Savior of the world, and the only mediator between God and men (1 Timothy 2:5).",
+      description: (
+        <>
+          <span className="font-bold text-black">Christology</span> is the biblical study of who Jesus Christ is. It teaches that Jesus is <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">true God</span> (John 1:1) and <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">true man</span> (Hebrews 2:17): born of a virgin (Matthew 1:23), lived without sin (Hebreos 4:15), died on the cross for our sins (1 Corinthians 15:3), rose on the third day (1 Corinthians 15:4), and now reigns as Lord (Philippians 2:9-11). He is the center of the Christian faith, the Savior of the world, and the <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">only mediator</span> between God and men (1 Timothy 2:5).
+        </>
+      ),
       deity: ["The reality of the two natures", "The integrity of the two natures", "The union of the two natures in one person", "Importance of this doctrine for the Church."],
       incarnation: ["Before the incarnation", "After the incarnation", "Christ is 100% God and 100% Man", "The dual nature of Christ"],
       names: ["He is called God", "He is called Lord", "He is called the First and the Last", "Christ, the Anointed of Jehovah"],
-      attributes: ["Omnipotence", "Omnipresence", "Omniscience"],
+      attributes: ["Omnipotence", "Omnipresence", "Omnisciencia"],
       properties: ["His own existence", "His immutability", "His infinity", "a. His absolute perfection", "b. His eternity"]
     },
     pt: {
-      description: "A Cristologia é o estudo bíblico de quem é Jesus Cristo. Ensina que Jesus é verdadeiro Deus (João 1:1) e verdadeiro homem (Hebreus 2:17): nasceu de uma virgem (Mateus 1:23), viveu sem pecado (Hebreus 4:15), morreu na cruz pelos nossos pecados (1 Coríntios 15:3), ressuscitou ao terceiro dia (1 Coríntios 15:4) e agora governa como Senhor (Filipenses 2:9-11). Ele é o centro da fé cristã, o Salvador do mundo e o único mediador entre Deus e os homens (1 Timóteo 2:5).",
+      description: (
+        <>
+          A <span className="font-bold text-black">Cristologia</span> é o estudo bíblico de quem é Jesus Cristo. Ensina que Jesus é <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadeiro Deus</span> (João 1:1) e <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadeiro homem</span> (Hebreus 2:17): nasceu de uma virgem (Mateus 1:23), viveu sem pecado (Hebreus 4:15), morreu na cruz pelos nossos pecados (1 Coríntios 15:3), ressuscitou ao terceiro dia (1 Coríntios 15:4) e agora governa como Senhor (Filipenses 2:9-11). Ele é o centro da fé cristã, o Salvador do mundo e o <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">único mediador</span> entre Deus e os homens (1 Timóteo 2:5).
+        </>
+      ),
       deity: ["A realidade das duas naturezas", "A integridade das duas naturezas", "A união das duas naturezas em uma só pessoa", "Importância desta doutrina para a Igreja."],
       incarnation: ["Antes da encarnação", "Depois da encarnação", "Cristo é 100% Deus e 100% Homem", "A dupla natureza de Cristo"],
       names: ["Ele é chamado de Deus", "Ele é chamado de Senhor", "Ele é chamado de o Primeiro e o Último", "Cristo, o Ungido de Jeová"],
       attributes: ["Onipotência", "Onipresença", "Onisciência"],
-      properties: ["Sua própria existência", "Sua imutabilidade", "Sua infinitude", "a. Sua absoluta perfeição", "b. Sua eternidade"]
+      properties: ["Sua própria existência", "Sua imutabilidade", "Sua infinitud", "a. Sua absoluta perfeição", "b. Sua eternidade"]
     }
   };
 
@@ -102,9 +114,9 @@ function CristologiaContent() {
       </div>
 
       <div className="max-w-xl mx-auto space-y-8 text-black">
-        <p className="text-sm md:text-base leading-relaxed text-black/70 italic border-l-2 border-black/10 pl-6 py-2 text-justify">
+        <div className="text-sm md:text-base leading-relaxed text-black/70 italic border-l-2 border-black/10 pl-6 py-2 text-justify">
           {c.description}
-        </p>
+        </div>
 
         <section>
           <Link href="/ensenanzas/cristologia/introduccion" className="group block">
