@@ -1,6 +1,10 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useLanguage } from '@/hooks/use-language';
+import { translations } from '@/hooks/translations';
 
 export function CourseCard({ 
   title, 
@@ -23,6 +27,19 @@ export function CourseCard({
   className?: string,
   hrefPrefix?: string
 }) {
+  const { language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className={`block ${className}`}><div className="w-full aspect-[3/4] bg-white/5 rounded-xl animate-pulse" /></div>;
+  }
+
+  const t = translations[language];
+
   const slug = title.toLowerCase().replace(/ /g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9-]/g, '');
   
   // Use a default image based on the title if no imageSrc is provided to match the visual style
@@ -49,13 +66,13 @@ export function CourseCard({
       {status === 'completed' && (
         <div className="absolute top-4 right-4 bg-[#a3e635] text-black text-[10px] font-bold px-2 py-1 rounded-full z-20 flex items-center gap-1 shadow-lg">
           <div className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
-          COMPLETO
+          {t.courseStatus.completed}
         </div>
       )}
 
       {status === 'empty' && (
         <div className="absolute top-4 right-4 bg-white/10 text-white/50 text-[10px] font-bold px-2 py-1 rounded-full z-20 border border-white/10">
-          VACÍO
+          {t.courseStatus.empty}
         </div>
       )}
 

@@ -1,21 +1,33 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { List, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-
-const sections = [
-  { title: 'Introducción', href: 'introduccion' },
-  { title: 'I. La Deidad de Cristo', href: 'deidad' },
-  { title: 'II. La Encarnación de Cristo', href: 'encarnacion' },
-  { title: 'III. Los Nombres Divinos de Cristo', href: 'nombres' },
-  { title: 'IV. Los Atributos Divinos de Cristo', href: 'atributos' },
-  { title: 'V. Propiedades Divinas de Cristo', href: 'propiedades' },
-];
+import { useLanguage } from '@/hooks/use-language';
+import { translations } from '@/hooks/translations';
 
 export function QuickIndex({ currentSlug }: { currentSlug: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const t = translations[language];
+
+  const sections = [
+    { title: t.lessons.introduction, href: 'introduccion' },
+    { title: `I. ${t.lessons.deityOfChrist}`, href: 'deidad' },
+    { title: `II. ${t.lessons.incarnationOfChrist}`, href: 'encarnacion' },
+    { title: `III. ${t.lessons.divineNames}`, href: 'nombres' },
+    { title: `IV. ${t.lessons.divineAttributes}`, href: 'atributos' },
+    { title: `V. ${t.lessons.divineProperties}`, href: 'propiedades' },
+  ];
 
   return (
     <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center">
@@ -28,7 +40,9 @@ export function QuickIndex({ currentSlug }: { currentSlug: string }) {
             className="mb-4 bg-white/90 backdrop-blur-md border border-black/10 rounded-2xl shadow-2xl overflow-hidden w-[280px] md:w-[320px]"
           >
             <div className="p-4 border-b border-black/5 flex justify-between items-center bg-black/5">
-              <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">Índice Rápido</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
+                {language === 'es' ? 'Índice Rápido' : language === 'en' ? 'Quick Index' : 'Índice Rápido'}
+              </span>
               <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-black/5 rounded-full transition-colors">
                 <X size={14} />
               </button>
@@ -50,7 +64,7 @@ export function QuickIndex({ currentSlug }: { currentSlug: string }) {
                   onClick={() => setIsOpen(false)}
                   className="block px-4 py-3 text-sm hover:bg-black/5 rounded-xl transition-colors font-bold text-blue-600"
                 >
-                  Volver al Índice General
+                  {t.lessons.backToIndex}
                 </Link>
               </div>
             </nav>
@@ -63,7 +77,9 @@ export function QuickIndex({ currentSlug }: { currentSlug: string }) {
         className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all group"
       >
         <List size={18} className="group-hover:rotate-12 transition-transform" />
-        <span className="text-xs uppercase tracking-[0.2em] font-bold">Explorar Temas</span>
+        <span className="text-xs uppercase tracking-[0.2em] font-bold">
+          {language === 'es' ? 'Explorar Temas' : language === 'en' ? 'Explore Topics' : 'Explorar Temas'}
+        </span>
       </button>
     </div>
   );
