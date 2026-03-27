@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLanguage, Language } from "@/hooks/use-language";
 import { translations } from "@/hooks/translations";
+import Link from "next/link";
 
 const cn = (...arr: Array<string | false | null | undefined>) =>
   arr.filter(Boolean).join(" ");
@@ -61,7 +62,7 @@ export const TextRoll: React.FC<{
 );
 
 export const Skiper58: React.FC<{ className?: string; onItemClick?: () => void }> = ({ className, onItemClick }) => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, isAdmin, isEditorMode, toggleEditorMode, logout } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ export const Skiper58: React.FC<{ className?: string; onItemClick?: () => void }
   if (!mounted) return null;
 
   const t = translations[language].nav;
+  const adminT = translations[language].admin;
 
   const navigationItems = [
     { name: t.home, href: "/", description: "" },
@@ -111,8 +113,40 @@ export const Skiper58: React.FC<{ className?: string; onItemClick?: () => void }
         ))}
       </ul>
 
+      {/* Admin Controls */}
+      {isAdmin && (
+        <div className="flex flex-col items-center gap-4 py-4 border-y border-white/5 w-full max-w-xs">
+          <button
+            onClick={toggleEditorMode}
+            className={cn(
+              "w-full px-6 py-3 rounded-xl border text-sm font-bold transition-all flex items-center justify-center gap-2",
+              isEditorMode
+                ? "bg-[#a3e635] border-[#a3e635] text-black"
+                : "border-white/10 text-white hover:bg-white/5"
+            )}
+          >
+            {adminT.editorMode}: {isEditorMode ? 'ON' : 'OFF'}
+          </button>
+          <button
+            onClick={logout}
+            className="w-full px-6 py-3 rounded-xl border border-red-500/20 text-red-500 text-sm font-bold hover:bg-red-500/10 transition-all"
+          >
+            {adminT.logout}
+          </button>
+        </div>
+      )}
+
       {/* Language Selector in Menu */}
       <div className="flex flex-col items-center gap-4">
+        {!isAdmin && (
+          <Link
+            href="/login"
+            onClick={onItemClick}
+            className="text-xs font-bold tracking-widest text-gray-600 hover:text-gray-400 uppercase transition-colors mb-4"
+          >
+            {adminT.login}
+          </Link>
+        )}
         <span className="text-xs font-bold tracking-widest text-gray-500 uppercase">Idioma / Language</span>
         <div className="flex gap-4">
           {languages.map((lang) => (

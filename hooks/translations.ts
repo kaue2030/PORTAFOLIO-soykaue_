@@ -24,6 +24,17 @@ export const translations: Record<Language, any> = {
       all: "Todos",
       courses: "Cursos",
       books: "Libros",
+      newRelease: "NUEVO LANZAMIENTO",
+      availableCourses: "Cursos Disponibles",
+    },
+    courses: {
+      cristologia: "Cristología",
+      bibliologia: "Bibliología",
+      teologia: "Teología",
+      eclesiologia: "Eclesiología",
+      neumatologia: "Neumatología",
+      escatologia: "Escatología",
+      typeCourse: "Curso",
     },
     courseStatus: {
       completed: "COMPLETADO",
@@ -35,6 +46,8 @@ export const translations: Record<Language, any> = {
     },
     faq: {
       title: "Preguntas Frecuentes",
+      aboutSpace: "Sobre este espacio",
+      description: "Un espacio para crecer en la fe, entender la Biblia y conocer más a Cristo",
     },
     lessons: {
       backToIndex: "Volver al Índice",
@@ -47,6 +60,21 @@ export const translations: Record<Language, any> = {
       divineNames: "Los Nombres Divinos de Cristo",
       divineAttributes: "Los Atributos Divinos de Cristo",
       divineProperties: "Propiedades Divinas de Cristo",
+      backTo: "Volver a",
+      quickIndex: "Índice Rápido",
+      exploreTopics: "Explorar Temas",
+    },
+    admin: {
+      login: "Iniciar Sesión",
+      logout: "Cerrar Sesión",
+      editorMode: "Modo Editor",
+      adminUser: "Usuario Administrador",
+      passwordPlaceholder: "Ingresa el usuario admin",
+      error: "Usuario incorrecto",
+      back: "Volver",
+      save: "Guardar Cambios",
+      cancel: "Cancelar",
+      onlyAdmin: "Solo para administración del sitio",
     }
   },
   en: {
@@ -72,6 +100,17 @@ export const translations: Record<Language, any> = {
       all: "All",
       courses: "Courses",
       books: "Books",
+      newRelease: "NEW RELEASE",
+      availableCourses: "Available Courses",
+    },
+    courses: {
+      cristologia: "Christology",
+      bibliologia: "Bibliology",
+      teologia: "Theology",
+      eclesiologia: "Ecclesiology",
+      neumatologia: "Pneumatology",
+      escatologia: "Eschatology",
+      typeCourse: "Course",
     },
     courseStatus: {
       completed: "COMPLETED",
@@ -83,6 +122,8 @@ export const translations: Record<Language, any> = {
     },
     faq: {
       title: "Frequently Asked Questions",
+      aboutSpace: "About this space",
+      description: "A space to grow in faith, understand the Bible and know more about Christ",
     },
     lessons: {
       backToIndex: "Back to Index",
@@ -95,6 +136,21 @@ export const translations: Record<Language, any> = {
       divineNames: "The Divine Names of Christ",
       divineAttributes: "The Divine Attributes of Christ",
       divineProperties: "Divine Properties of Christ",
+      backTo: "Back to",
+      quickIndex: "Quick Index",
+      exploreTopics: "Explore Topics",
+    },
+    admin: {
+      login: "Login",
+      logout: "Logout",
+      editorMode: "Editor Mode",
+      adminUser: "Admin User",
+      passwordPlaceholder: "Enter admin user",
+      error: "Incorrect user",
+      back: "Back",
+      save: "Save Changes",
+      cancel: "Cancel",
+      onlyAdmin: "Only for site administration",
     }
   },
   pt: {
@@ -120,6 +176,17 @@ export const translations: Record<Language, any> = {
       all: "Todos",
       courses: "Cursos",
       books: "Livros",
+      newRelease: "NOVO LANÇAMENTO",
+      availableCourses: "Cursos Disponíveis",
+    },
+    courses: {
+      cristologia: "Cristologia",
+      bibliologia: "Bibliologia",
+      teologia: "Teologia",
+      eclesiologia: "Eclesiologia",
+      neumatologia: "Pneumatologia",
+      escatologia: "Escatologia",
+      typeCourse: "Curso",
     },
     courseStatus: {
       completed: "CONCLUÍDO",
@@ -131,6 +198,8 @@ export const translations: Record<Language, any> = {
     },
     faq: {
       title: "Perguntas Frequentes",
+      aboutSpace: "Sobre este espaço",
+      description: "Um espaço para crescer na fé, entender a Bíblia e conhecer mais a Cristo",
     },
     lessons: {
       backToIndex: "Voltar ao Índice",
@@ -143,6 +212,21 @@ export const translations: Record<Language, any> = {
       divineNames: "Os Nomes Divinos de Cristo",
       divineAttributes: "Os Atributos Divinos de Cristo",
       divineProperties: "Propriedades Divinas de Cristo",
+      backTo: "Voltar a",
+      quickIndex: "Índice Rápido",
+      exploreTopics: "Explorar Temas",
+    },
+    admin: {
+      login: "Entrar",
+      logout: "Sair",
+      editorMode: "Modo Editor",
+      adminUser: "Usuário Administrador",
+      passwordPlaceholder: "Digite o usuário admin",
+      error: "Usuário incorreto",
+      back: "Voltar",
+      save: "Salvar Alterações",
+      cancel: "Cancelar",
+      onlyAdmin: "Apenas para administração do site",
     }
   }
 };

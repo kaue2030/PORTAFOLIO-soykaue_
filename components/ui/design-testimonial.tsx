@@ -68,12 +68,12 @@ export function Testimonial() {
       {/* Background Glow matching home page */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#0f3826]/40 blur-[120px] rounded-full pointer-events-none z-0" />
 
-      {/* Background Image (Avatar de Estudio) */}
+      {/* Background Image (Avatar de Estudio Bíblico) */}
       <div className="absolute right-[-20%] md:right-[-5%] lg:right-[0%] bottom-0 w-[120%] md:w-[60%] lg:w-[55%] h-[80%] md:h-[100%] flex justify-end items-end pointer-events-none opacity-40 md:opacity-60 z-0 mix-blend-luminosity">
         <div className="relative w-full h-full">
           <Image 
             src="https://lh3.googleusercontent.com/d/15ESWllXvWWNaUEUphfCgcaQYSFXnc9BB" 
-            alt="Avatar de Estudio" 
+            alt="Avatar de Estudio Bíblico"
             fill 
             className="object-cover object-top"
             style={{ 

@@ -9,7 +9,7 @@ import { useLanguage } from '@/hooks/use-language';
 import { translations } from '@/hooks/translations';
 
 export default function EnsenanzasPage() {
-  const { language } = useLanguage();
+  const { language, isEditorMode } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -61,17 +61,13 @@ export default function EnsenanzasPage() {
         
         <div className="relative z-10 max-w-2xl flex flex-col gap-4 mt-20">
           <div className="text-[#a3e635] font-mono text-sm tracking-widest uppercase font-bold">
-            {language === 'es' ? 'NUEVO LANZAMIENTO' : language === 'en' ? 'NEW RELEASE' : 'NOVO LANÇAMENTO'}
+            {t.sections.newRelease}
           </div>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-none uppercase whitespace-pre-line">
             {t.sections.studyMaterial.replace(' ', '\n')}
           </h1>
           <p className="text-[15px] text-justify leading-relaxed text-gray-300 mt-4 max-w-md">
-            {language === 'es'
-              ? 'Este espacio reúne reflexiones, anotaciones y aprendizajes que forman parte de mi caminar con Dios. No desde una posición de enseñanza, sino como un registro del proceso y un retorno constante a la Biblia.'
-              : language === 'en'
-              ? 'This space gathers reflections, notes, and learnings that are part of my walk with God. Not from a teaching position, but as a record of the process and a constant return to the Bible.'
-              : 'Este espaço reúne reflexões, anotações e aprendizados que fazem parte da minha caminhada com Deus. Não a partir de uma posição de ensino, mas como um registro do processo e um retorno constante à Bíblia.'}
+            {t.about.description}
           </p>
         </div>
       </div>
@@ -80,48 +76,52 @@ export default function EnsenanzasPage() {
       <div className="flex flex-col gap-10 md:gap-16 px-4 md:px-12 lg:px-20 -mt-8 md:-mt-12 relative z-20">
         <section className="flex flex-col gap-6">
           <h2 className="text-xl md:text-2xl font-bold text-white/90 px-2 uppercase tracking-tight">
-            {language === 'es' ? 'Cursos Disponibles' : language === 'en' ? 'Available Courses' : 'Cursos Disponíveis'}
+            {t.sections.availableCourses}
           </h2>
           <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="CRISTOLOGÍA" 
+              title={t.courses.cristologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://lh3.googleusercontent.com/d/1X1l4CaRCY1E6wxSyVoX1iI2RMFilJs5U"
               bgColor="bg-transparent"
               textColor="text-white"
               status="completed"
+              onEdit={(t) => console.log('Edit:', t)}
             />
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="BIBLIOLOGÍA" 
+              title={t.courses.bibliologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://lh3.googleusercontent.com/d/1-CPOYyNFrKKkeGEgj33CbazTA2rRShHL"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(t) => console.log('Edit:', t)}
             />
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="TEOLOGÍA" 
+              title={t.courses.teologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(t) => console.log('Edit:', t)}
             />
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="ECLESIOLOGÍA" 
+              title={t.courses.eclesiologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(t) => console.log('Edit:', t)}
             />
           </div>
         </section>
@@ -133,23 +133,25 @@ export default function EnsenanzasPage() {
           <div className="flex overflow-x-auto gap-4 md:gap-6 pb-8 px-2 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="NEUMATOLOGÍA" 
+              title={t.courses.neumatologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(t) => console.log('Edit:', t)}
             />
             <CourseCard 
               className="w-[200px] md:w-[280px] shrink-0 snap-start"
-              title="ESCATOLOGÍA" 
+              title={t.courses.escatologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1505506819717-0bd151475301?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(t) => console.log('Edit:', t)}
             />
           </div>
         </section>

@@ -6,6 +6,7 @@ import { ArrowLeft, ChevronRight } from 'lucide-react';
 import { ProgressiveBlur } from '@/components/ui/progressive-blur';
 import { useLanguage } from '@/hooks/use-language';
 import { translations } from '@/hooks/translations';
+import { cristologiaContent } from '@/hooks/lessons-content';
 
 export default function CoursePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
@@ -38,7 +39,7 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
         <div className="flex h-full w-full flex-col items-center overflow-y-auto pt-8 md:pt-12 scroll-smooth">
           <div className="mt-6 md:mt-10 grid content-start justify-items-center gap-4 md:gap-6 text-center text-black">
             <span className="relative max-w-[15ch] text-[10px] md:text-xs uppercase leading-tight opacity-40 after:absolute after:left-1/2 after:top-full after:h-5 md:after:h-6 after:w-px after:bg-gradient-to-b after:from-white after:to-black after:content-['']">
-              {t.lessons.biblicalTeaching}<br />{resolvedParams.slug === 'cristologia' ? (language === 'es' ? 'CRISTOLOGÍA' : language === 'en' ? 'CHRISTOLOGY' : 'CRISTOLOGIA') : resolvedParams.slug.toUpperCase()}
+              {t.lessons.biblicalTeaching}<br />{resolvedParams.slug === 'cristologia' ? t.courses.cristologia.toUpperCase() : resolvedParams.slug.toUpperCase()}
             </span>
           </div>
 
@@ -58,65 +59,53 @@ export default function CoursePage({ params }: { params: Promise<{ slug: string 
 }
 
 function CristologiaContent() {
-  const { language } = useLanguage();
+  const { language, isEditorMode } = useLanguage();
   const t = translations[language];
+  const adminT = translations[language].admin;
+  const c = cristologiaContent[language].base;
 
-  const content = {
-    es: {
-      description: (
-        <>
-          La <span className="font-bold text-black">Cristología</span> es el estudio bíblico de quién es Jesucristo. Enseña que Jesús es <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadero Dios</span> (Juan 1:1) y <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadero hombre</span> (Hebreos 2:17): nació de una virgen (Mateo 1:23), vivió sin pecado (Hebreos 4:15), murió en la cruz por nuestros pecados (1 Corintios 15:3), resucitó al tercer día (1 Corintios 15:4) y ahora gobierna como Señor (Filipenses 2:9-11). Él es el centro de la fe cristiana, el Salvador del mundo y el <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">único mediador</span> entre Dios y los hombres (1 Timoteo 2:5).
-        </>
-      ),
-      deity: ["La realidad de las dos naturalezas", "La integridad de las dos naturalezas", "La unión de las dos naturalezas en una sola persona", "Importancia de esta doctrina para la Iglesia."],
-      incarnation: ["Antes de la encarnación", "Después de la encarnación", "Cristo es Dios y Hombre al 100%", "La doble naturaleza de Cristo"],
-      names: ["Se le llama Dios", "Se le llama Señor", "Se le llama el Primero y el Último", "Cristo, el Ungido de Jehová"],
-      attributes: ["Omnipotencia", "Omnipresencia", "Omnisciencia"],
-      properties: ["Su propia existencia", "Su inmutabilidad", "Su infinitud", "a. Su absoluta perfección", "b. Su eternidad"]
-    },
-    en: {
-      description: (
-        <>
-          <span className="font-bold text-black">Christology</span> is the biblical study of who Jesus Christ is. It teaches that Jesus is <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">true God</span> (John 1:1) and <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">true man</span> (Hebrews 2:17): born of a virgin (Matthew 1:23), lived without sin (Hebreos 4:15), died on the cross for our sins (1 Corinthians 15:3), rose on the third day (1 Corinthians 15:4), and now reigns as Lord (Philippians 2:9-11). He is the center of the Christian faith, the Savior of the world, and the <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">only mediator</span> between God and men (1 Timothy 2:5).
-        </>
-      ),
-      deity: ["The reality of the two natures", "The integrity of the two natures", "The union of the two natures in one person", "Importance of this doctrine for the Church."],
-      incarnation: ["Before the incarnation", "After the incarnation", "Christ is 100% God and 100% Man", "The dual nature of Christ"],
-      names: ["He is called God", "He is called Lord", "He is called the First and the Last", "Christ, the Anointed of Jehovah"],
-      attributes: ["Omnipotence", "Omnipresence", "Omnisciencia"],
-      properties: ["His own existence", "His immutability", "His infinity", "a. His absolute perfection", "b. His eternity"]
-    },
-    pt: {
-      description: (
-        <>
-          A <span className="font-bold text-black">Cristologia</span> é o estudo bíblico de quem é Jesus Cristo. Ensina que Jesus é <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadeiro Deus</span> (João 1:1) e <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">verdadeiro homem</span> (Hebreus 2:17): nasceu de uma virgem (Mateus 1:23), viveu sem pecado (Hebreus 4:15), morreu na cruz pelos nossos pecados (1 Coríntios 15:3), ressuscitou ao terceiro dia (1 Coríntios 15:4) e agora governa como Senhor (Filipenses 2:9-11). Ele é o centro da fé cristã, o Salvador do mundo e o <span className="bg-yellow-200/80 px-1 rounded-sm font-bold text-black">único mediador</span> entre Deus e os homens (1 Timóteo 2:5).
-        </>
-      ),
-      deity: ["A realidade das duas naturezas", "A integridade das duas naturezas", "A união das duas naturezas em uma só pessoa", "Importância desta doutrina para a Igreja."],
-      incarnation: ["Antes da encarnação", "Depois da encarnação", "Cristo é 100% Deus e 100% Homem", "A dupla natureza de Cristo"],
-      names: ["Ele é chamado de Deus", "Ele é chamado de Senhor", "Ele é chamado de o Primeiro e o Último", "Cristo, o Ungido de Jeová"],
-      attributes: ["Onipotência", "Onipresença", "Onisciência"],
-      properties: ["Sua própria existência", "Sua imutabilidade", "Sua infinitud", "a. Sua absoluta perfeição", "b. Sua eternidade"]
-    }
+  const [editContent, setEditContent] = useState(c);
+
+  const handleSave = () => {
+    console.log('Saving changes:', editContent);
+    alert(adminT.save);
   };
 
-  const c = content[language];
+  const current = isEditorMode ? editContent : c;
 
   return (
     <article className="space-y-8 md:space-y-12 pb-20">
+      {isEditorMode && (
+        <div className="fixed bottom-10 right-10 z-[100] flex gap-4">
+          <button
+            onClick={handleSave}
+            className="px-6 py-3 bg-[#a3e635] text-black font-bold rounded-full shadow-2xl hover:scale-105 transition-all uppercase text-xs tracking-widest"
+          >
+            {adminT.save}
+          </button>
+        </div>
+      )}
       <div className="text-center space-y-2">
         <h1 className="text-xl md:text-2xl font-bold text-black tracking-widest uppercase">
           {t.lessons.biblicalTeaching}
         </h1>
         <h2 className="text-4xl md:text-6xl font-bold text-black tracking-tighter uppercase">
-          {language === 'es' ? 'Cristología' : language === 'en' ? 'Christology' : 'Cristologia'}
+          {t.courses.cristologia}
         </h2>
       </div>
 
       <div className="max-w-xl mx-auto space-y-8 text-black">
-        <div className="text-sm md:text-base leading-relaxed text-black/70 italic border-l-2 border-black/10 pl-6 py-2 text-justify">
-          {c.description}
-        </div>
+        {isEditorMode ? (
+          <textarea
+            value={typeof editContent.description === 'string' ? editContent.description : 'Complex content'}
+            onChange={(e) => setEditContent({...editContent, description: e.target.value})}
+            className="w-full h-32 p-4 bg-white border border-black/10 rounded-xl italic text-sm"
+          />
+        ) : (
+          <div className="text-sm md:text-base leading-relaxed text-black/70 italic border-l-2 border-black/10 pl-6 py-2 text-justify">
+            {current.description}
+          </div>
+        )}
 
         <section>
           <Link href="/ensenanzas/cristologia/introduccion" className="group block">
@@ -135,7 +124,7 @@ function CristologiaContent() {
             </h3>
           </Link>
           <ul className="pl-6 space-y-1 text-sm md:text-base text-black/70">
-            {c.deity.map((item, i) => (
+            {c.deity.map((item: string, i: number) => (
               <li key={i} className={i === 3 ? "font-bold text-black" : ""}>{item}</li>
             ))}
           </ul>
@@ -149,7 +138,7 @@ function CristologiaContent() {
             </h3>
           </Link>
           <ul className="pl-6 space-y-1 text-sm md:text-base text-black/70">
-            {c.incarnation.map((item, i) => (
+            {c.incarnation.map((item: string, i: number) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
@@ -163,7 +152,7 @@ function CristologiaContent() {
             </h3>
           </Link>
           <ul className="pl-6 space-y-1 text-sm md:text-base text-black/70">
-            {c.names.map((item, i) => (
+            {c.names.map((item: string, i: number) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
@@ -177,7 +166,7 @@ function CristologiaContent() {
             </h3>
           </Link>
           <ul className="pl-6 space-y-1 text-sm md:text-base text-black/70">
-            {c.attributes.map((item, i) => (
+            {c.attributes.map((item: string, i: number) => (
               <li key={i}>{item}</li>
             ))}
           </ul>

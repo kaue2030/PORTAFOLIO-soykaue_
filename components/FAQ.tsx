@@ -17,6 +17,7 @@ export function FAQ() {
   if (!mounted) return null;
 
   const t = translations[language];
+  const faqT = t.faq;
 
   const faqs = {
     es: [
@@ -98,10 +99,10 @@ export function FAQ() {
       {/* Left Column */}
       <div className="w-full md:w-1/3 flex flex-col">
         <h2 className="text-4xl md:text-[44px] font-semibold text-white tracking-tight mb-6">
-          {language === 'es' ? 'Sobre este espacio' : language === 'en' ? 'About this space' : 'Sobre este espaço'}
+          {faqT.aboutSpace}
         </h2>
         <p className="text-[#a1a1aa] text-base md:text-lg mb-8">
-          {language === 'es' ? 'Un espacio para crecer en la fe, entender la Biblia y conocer más a Cristo' : language === 'en' ? 'A space to grow in faith, understand the Bible and know more about Christ' : 'Um espaço para crescer na fé, entender a Bíblia e conhecer mais a Cristo'}
+          {faqT.description}
         </p>
         <p className="text-[#a1a1aa] text-[13px] leading-relaxed max-w-xs">
           {language === 'es'

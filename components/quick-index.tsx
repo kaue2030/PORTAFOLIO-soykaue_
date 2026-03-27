@@ -41,7 +41,7 @@ export function QuickIndex({ currentSlug }: { currentSlug: string }) {
           >
             <div className="p-4 border-b border-black/5 flex justify-between items-center bg-black/5">
               <span className="text-[10px] uppercase tracking-widest font-bold opacity-50">
-                {language === 'es' ? 'Índice Rápido' : language === 'en' ? 'Quick Index' : 'Índice Rápido'}
+                {t.lessons.quickIndex}
               </span>
               <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-black/5 rounded-full transition-colors">
                 <X size={14} />
@@ -78,7 +78,7 @@ export function QuickIndex({ currentSlug }: { currentSlug: string }) {
       >
         <List size={18} className="group-hover:rotate-12 transition-transform" />
         <span className="text-xs uppercase tracking-[0.2em] font-bold">
-          {language === 'es' ? 'Explorar Temas' : language === 'en' ? 'Explore Topics' : 'Explorar Temas'}
+          {t.lessons.exploreTopics}
         </span>
       </button>
     </div>

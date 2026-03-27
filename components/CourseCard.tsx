@@ -15,7 +15,8 @@ export function CourseCard({
   imageSrc,
   status,
   className = "",
-  hrefPrefix = "/ensenanzas"
+  hrefPrefix = "/ensenanzas",
+  onEdit
 }: { 
   title: string, 
   author: string, 
@@ -25,10 +26,13 @@ export function CourseCard({
   imageSrc?: string,
   status?: 'completed' | 'empty' | 'coming-soon',
   className?: string,
-  hrefPrefix?: string
+  hrefPrefix?: string,
+  onEdit?: (newTitle: string) => void
 }) {
-  const { language } = useLanguage();
+  const { language, isEditorMode } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(title);
 
   useEffect(() => {
     setMounted(true);
@@ -78,9 +82,21 @@ export function CourseCard({
 
       {/* Content */}
       <div className="absolute inset-0 p-6 flex flex-col justify-end items-center text-center z-10">
-        <h3 className={`text-xl md:text-2xl font-bold text-white uppercase tracking-wider mb-2 transition-all duration-500 ${isClickable ? 'transform translate-y-2 group-hover:translate-y-0' : ''}`}>
-          {title}
-        </h3>
+        {isEditorMode ? (
+          <div className="w-full space-y-2 mb-2" onClick={(e) => e.stopPropagation()}>
+            <input
+              type="text"
+              value={editedTitle}
+              onChange={(e) => setEditedTitle(e.target.value)}
+              onBlur={() => onEdit?.(editedTitle)}
+              className="w-full bg-white/20 border border-white/40 text-white text-center font-bold px-2 py-1 rounded outline-none uppercase tracking-wider"
+            />
+          </div>
+        ) : (
+          <h3 className={`text-xl md:text-2xl font-bold text-white uppercase tracking-wider mb-2 transition-all duration-500 ${isClickable ? 'transform translate-y-2 group-hover:translate-y-0' : ''}`}>
+            {title}
+          </h3>
+        )}
         {status !== 'empty' && author && (
           <p className={`text-sm text-gray-300 font-medium transition-all duration-500 delay-75 ${isClickable ? 'transform translate-y-2 group-hover:translate-y-0' : ''}`}>
             {author}

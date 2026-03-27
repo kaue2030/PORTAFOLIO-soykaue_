@@ -15,7 +15,7 @@ import { translations } from '@/hooks/translations';
 export default function Page() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, isEditorMode } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -151,40 +151,44 @@ export default function Page() {
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <CourseCard 
-              title="CRISTOLOGÍA" 
+              title={t.courses.cristologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://lh3.googleusercontent.com/d/1X1l4CaRCY1E6wxSyVoX1iI2RMFilJs5U"
               bgColor="bg-transparent"
               textColor="text-white"
               status="completed"
+              onEdit={(newTitle) => console.log('Edit Title:', newTitle)}
             />
             <CourseCard 
-              title="BIBLIOLOGÍA" 
+              title={t.courses.bibliologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://lh3.googleusercontent.com/d/1-CPOYyNFrKKkeGEgj33CbazTA2rRShHL"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(newTitle) => console.log('Edit Title:', newTitle)}
             />
             <CourseCard 
-              title="TEOLOGÍA" 
+              title={t.courses.teologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(newTitle) => console.log('Edit Title:', newTitle)}
             />
             <CourseCard 
-              title="ECLESIOLOGÍA" 
+              title={t.courses.eclesiologia}
               author=""
-              type="CURSO"
+              type={t.courses.typeCourse}
               imageSrc="https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=400&h=600&fit=crop"
               bgColor="bg-transparent"
               textColor="text-white"
               status="empty"
+              onEdit={(newTitle) => console.log('Edit Title:', newTitle)}
             />
           </div>
         </div>
